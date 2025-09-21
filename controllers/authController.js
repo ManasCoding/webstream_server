@@ -45,7 +45,7 @@ export const signup = async function (req, res) {
                     });
                     let token = jwt.sign({ email: email, userid: user._id }, "secret");
                     console.log(token);
-                    res.cookie('token', token);
+                    res.cookie('token', token, { httpOnly: true, sameSite: "none", secure: true });
                     res.status(201).send(user);
                 };
             });
@@ -76,7 +76,7 @@ export const login = async function (req, res) {
             if (result) {
                 let token = jwt.sign({ email: email, userid: user._id }, "secret");
                 console.log(token);
-                res.cookie('token', token);
+                res.cookie('token', token, { httpOnly: true, sameSite: "none", secure: true });
                 res.status(200).send(user);
             }
             else {
